@@ -1,0 +1,66 @@
+<div style="background-color: rgb(109, 135, 113);">
+    <table style="width: 100%;">
+        <tr>
+            <td style="text-align: right;">
+                <button style="text-align: right;" (click)="nazad()">Nazad</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<h4>Izmeni objekat:</h4>
+<table>
+    <tr>
+        <td>Tip objekta</td>
+        <td>
+            <select [(ngModel)]="tipObj">
+                <option value="stan">Stan</option>
+                <option value="kuca">Kuca</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>Adresa</td>
+        <td>
+            <input type="text" name="text" [(ngModel)]="adresaObj">
+        </td>
+    </tr>
+    <tr>
+        <td>Broj prostorija</td>
+        <td>
+            <input type="number" name="numer" [(ngModel)]="prostorijeObj">
+        </td>
+    </tr>
+    <tr>
+        <td>Kvadratura</td>
+        <td>
+            <input type="number" name="number" [(ngModel)]="kvadratura">
+        </td>
+    </tr>
+</table>
+
+<p style="margin-bottom: 0;">Unesite dimenzije prostorije koju zelite da nacrtate, a zatim klikom na povrsinu ispod pozicionirajte istu.</p>
+<p style="font-style: italic; color: red; margin-top: 0;">(Napomena: Velicina platna je 300x300)</p>
+<table>
+    <tr>
+        <td>Sirina: </td>
+        <td>
+            <input type="number" name="number" [(ngModel)]="rectWidth">
+        </td>
+        <td>Visina: </td>
+        <td>
+            <input type="number" name="number" [(ngModel)]="rectHeight">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            <input type="checkbox" name="checkbox" id="door" [(ngModel)]="drawingDoors">
+            <label for="door">Crtaj vrata</label>
+        </td>
+    </tr>
+</table>
+<canvas id="canvas1" class="canvasClass"></canvas>
+<br/>
+<button (click)="clearCanvas()">Obrisi</button>
+<button (click)="editObject()">Izmeni objekat</button>
+<span style="color:red">{{message}}</span>

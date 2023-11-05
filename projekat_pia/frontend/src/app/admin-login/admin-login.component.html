@@ -1,0 +1,31 @@
+<app-header-admin-login></app-header-admin-login>
+
+<div class="app-container">
+<div class="content">
+
+<br/>
+<table>
+    <tr>
+        <td>Korisnicko ime</td>
+        <td>
+            <input type="text" name="username" [(ngModel)]="username">
+        </td>
+    </tr>
+    <tr>
+        <td>Lozinka</td>
+        <td>
+            <input type="text" name="password" [(ngModel)]="password">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <button (click)="loginAdmin()">PRIJAVA</button>
+        </td>
+    </tr>
+</table>
+<p style="color: red">{{message}}</p>
+
+</div>
+</div>
+
+<app-footer style="position: relative; left: 0; bottom: 0; width: 100%; padding: 0;"></app-footer>

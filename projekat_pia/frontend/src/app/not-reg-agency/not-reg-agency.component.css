@@ -1,0 +1,10 @@
+.thumbnail {
+    width: 70px;
+    height: 70px;
+}
+
+.canvasClass {
+    border: 1px solid black;
+    margin: 0;
+    padding: 0;
+}

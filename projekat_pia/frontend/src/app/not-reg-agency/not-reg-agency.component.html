@@ -1,0 +1,61 @@
+<div style="background-color: rgb(128, 128, 108);">
+    <table style="width: 100%;">
+        <tr>
+            <td>
+                <h2 style="color:white; margin: 0;">Agencija:</h2>
+            </td>
+            <td style="text-align: right;">
+                <button (click)="logout()">Pocetna stranica</button>
+            </td>
+        </tr>
+        <tr>
+            <div style="text-align: left; display: flex; align-items: center;">
+                <td>
+                    <img [src]="image" alt="Uploaded Image" class="thumbnail">
+                </td>
+                <td>
+                    <h4 style="color:white">{{name}}</h4>
+                </td>
+            </div>
+        </tr>
+        <div>
+            <tr>
+                <td style="color:white">E-mail: </td>
+                <td style="color:white">{{mail}}</td>
+            </tr>
+            <tr>
+                <td style="color:white">Kontakt: </td>
+                <td style="color:white">{{number}}</td>
+            </tr>
+            <tr>
+                <td style="color:white">Adresa: </td>
+                <td style="color:white">{{address}}</td>
+            </tr>
+            <tr>
+                <td style="color:white">Opis: </td>
+                <td style="color:white">{{description}}</td>
+            </tr>
+        </div>
+    </table>
+</div>
+
+<h3>Komentari</h3>
+<table border="1">
+    <tr>
+        <td>Korisnik</td>
+        <td>Komentar</td>
+        <td>Ocena</td>
+    </tr>
+    <tr *ngFor="let n of sviKomentari">
+        <td>{{n.korisnik}}</td>
+        <td>{{n.komentar}}</td>
+        <td>{{n.ocena}}</td>
+    </tr>
+</table>
+
+<h3>Radovi</h3>
+<div>
+    <canvas id="canvas1" class="canvasClass"></canvas>
+    <br/>
+    <button (click)="nextGalerry()">Sledeci</button>
+</div>

@@ -1,0 +1,73 @@
+<div style="background-color: rgb(128, 128, 108);">
+    <table style="width:100%">
+        <tr>
+            <td>
+                <h3 style="color: white; margin: 0;">Neregistrovani korisnik</h3>
+            </td>
+            <td style="text-align: right;">
+                <button (click)="logout()">Pocetna stranica</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<h3>Agencije u sistemu:</h3>
+Pretrazi agencije:
+<table>
+    <tr>
+        <td>Naziv: </td>
+        <td>
+            <input type="text" name="text" [(ngModel)]="searchName">
+        </td>
+        <td>Adresa: </td>
+        <td>
+            <input type="text" name="text" [(ngModel)]="searchAddress">
+        </td>
+        <td>
+            <button (click)="search()">Pretrazi</button>
+        </td>
+    </tr>    
+</table>
+
+<table>
+    <tr>
+        <td>Sortiraj po: </td>
+        <td>
+            <select [(ngModel)]="sortParam">
+                <option value="name">Nazivu</option>
+                <option value="description">Opisu</option>
+            </select>
+        </td>
+        <td>
+            <select [(ngModel)]="sortTrend">
+                <option value=1>Rastuce</option>
+                <option value=-1>Opadajuce</option>
+            </select>
+        </td>
+        <td>
+            <button (click)="sortiraj()">Sortiraj</button>
+        </td>
+    </tr>    
+</table>
+
+<br/>
+<table border="1">
+    <tr>
+        <td>Logo</td>
+        <td>Naziv</td>
+        <td>Opis</td>
+        <td>Agencija</td>
+    </tr>
+    <tr *ngFor="let n of allAgencies">
+        <td>
+            <img [src]="n.image" alt="Uploaded Image" class="thumbnail"> 
+        </td>
+        <td>{{n.name}}</td>
+        <td>{{n.description}}</td>
+        <td>
+            <button (click)="pregledAgencije(n.username)">Pregled</button>
+        </td>
+    </tr>
+</table>
+
+<app-footer style="position: absolute; left: 0; bottom: 0; width: 100%; padding: 0;"></app-footer>

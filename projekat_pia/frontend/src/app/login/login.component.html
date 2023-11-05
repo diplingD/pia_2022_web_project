@@ -1,0 +1,36 @@
+<app-header></app-header>
+
+<div class="app-container">
+<div class="content">
+
+<table>
+    <tr>
+        <td>Korisnicko ime</td>
+        <td>
+            <input type="text" name="username" [(ngModel)]="username">
+        </td>
+    </tr>
+    <tr>
+        <td>Lozinka</td>
+        <td>
+            <input type="text" name="password" [(ngModel)]="password">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button (click)="login()">PRIJAVA</button>
+        </td>
+        <td>
+            <span style="color: red">{{message}}</span>
+        </td>
+    </tr>
+</table>
+
+Za administratore, prijavite se <a routerLink="/adminLogin">ovde</a>.
+<hr/>
+Za registreciju novog korisnika, kliknite <a routerLink="/register">ovde</a>.
+
+</div>
+</div>
+
+<app-footer style="position: absolute; left: 0; bottom: 0; width: 100%; padding: 0;"></app-footer>

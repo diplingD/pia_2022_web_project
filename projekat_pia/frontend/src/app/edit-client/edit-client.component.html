@@ -1,0 +1,49 @@
+<div style="background-color: rgb(109, 135, 113);">
+    <table style="width: 100%;">
+        <tr>
+            <td style="text-align: right;">
+                <button style="text-align: right;" (click)="nazad()">Nazad</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<h4>Azuriraj klijenta</h4>
+<table>
+    <tr>
+        <td>
+            <img [src]="image" alt="Uploaded Image" class="thumbnail">
+        </td>
+        <td>
+            <input type="file" name="image" accept="image/jpeg, image/png" (change)="onFileSelected($event)">
+        </td>
+    </tr>
+    <tr>
+        <td>Ime</td>
+        <td>
+            <input type="text" name="text" [(ngModel)]="ime">
+        </td>        
+    </tr>
+    <tr>
+        <td>Prezime</td>
+        <td>
+            <input type="text" name="text" [(ngModel)]="prezime">
+        </td>         
+    </tr>
+    <tr>
+        <td>Kontakt telefon</td>
+        <td>
+            <input type="text" name="text" [(ngModel)]="contact">
+        </td>         
+    </tr>
+    <tr>
+        <td>E-mail</td>
+        <td>
+            <input type="text" name="text" [(ngModel)]="mail">
+        </td>         
+    </tr>
+</table>
+
+<br>
+<button (click)="azuriraj()">Azuriraj</button>
+<span style="color: red">{{message}}</span>

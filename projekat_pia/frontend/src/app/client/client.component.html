@@ -1,0 +1,330 @@
+
+<div style="background-color: rgb(109, 135, 113);">
+<table style="width: 100%;">
+    <tr>
+        <td>
+            <h2 style="color:white; margin: 0;">Klijent:</h2>
+        </td>
+        <td style="text-align: right;">
+            <button (click)="azurirajKlijenta()">Azuriraj podatke</button>
+            <button (click)="odjava()">Odjava</button>
+        </td>
+    </tr>
+    <tr>
+        <div style="text-align: left; display: flex; align-items: center;">
+            <td>
+                <img [src]="image" alt="Uploaded Image" class="thumbnail">
+            </td>
+            <td >
+                <h3 style="color:white; ">{{firstname}} {{lastname}}</h3>
+            </td>
+        </div>
+    </tr>
+    <tr>
+        <div style="text-align: left;">
+            <td> <span style="color:white">mail: </span> </td>
+            <td> <span style="color:white">{{mail}}</span> </td>            
+        </div>
+    </tr>
+    <tr>
+        <div style="text-align: left;">
+            <td> <span style="color:white">contact: </span> </td>
+            <td> <span style="color:white">{{contact}}</span> </td>
+        </div>        
+    </tr>
+</table>
+</div>
+
+<h3>Svi objekti</h3>
+<table border="1">
+    <tr>
+        <td>Tip</td>
+        <td>Adresa</td>
+        <td>Br. prostorija</td>
+        <td>Kvadratura</td>
+        <td>Skica</td>
+        <td>Izmeni</td>
+        <td>Obrisi</td>
+    </tr>
+    <tr *ngFor="let obj of allObjects">
+        <td>{{obj.tip}}</td>
+        <td>{{obj.adresa}}</td>
+        <td>{{obj.prostorije}}</td>
+        <td>{{obj.kvadratura}}</td>
+        <td>
+            <button (click)="showCanvas(obj.canvas)">Prikazi</button>
+        </td>
+        <td>
+            <button (click)="editCanvas(obj.tip, obj.adresa, obj.prostorije, obj.kvadratura)">Izmeni objekat</button>
+        </td>
+        <td>
+            <button (click)="deleteObject(obj.tip, obj.adresa)">Obrisi</button>
+        </td>
+    </tr>
+</table>
+<br/>
+<canvas id="canvas2" class="canvasClass"></canvas>
+
+<h4>Dodaj objekat:</h4>
+<table>
+    <tr>
+        <td>Tip objekta</td>
+        <td>
+            <select [(ngModel)]="tipObj">
+                <option value="stan">Stan</option>
+                <option value="kuca">Kuca</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>Adresa</td>
+        <td>
+            <input type="text" name="text" [(ngModel)]="adresaObj">
+        </td>
+    </tr>
+    <tr>
+        <td>Broj prostorija</td>
+        <td>
+            <input type="number" name="numer" [(ngModel)]="prostorijeObj">
+        </td>
+    </tr>
+    <tr>
+        <td>Kvadratura</td>
+        <td>
+            <input type="number" name="number" [(ngModel)]="kvadratura">
+        </td>
+    </tr>
+</table>
+
+<p style="margin-bottom: 0;">Unesite dimenzije prostorije koju zelite da nacrtate, a zatim klikom na povrsinu ispod pozicionirajte istu.</p>
+<p style="font-style: italic; color: red; margin-top: 0;">(Napomena: Velicina platna je 300x300)</p>
+<table>
+    <tr>
+        <td>Sirina: </td>
+        <td>
+            <input type="number" name="number" [(ngModel)]="rectWidth">
+        </td>
+        <td>Visina: </td>
+        <td>
+            <input type="number" name="number" [(ngModel)]="rectHeight">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            <input type="checkbox" name="checkbox" id="door" [(ngModel)]="drawingDoors">
+            <label for="door">Crtaj vrata</label>
+        </td>
+    </tr>
+</table>
+<canvas id="canvas1" class="canvasClass"></canvas>
+<br/>
+<button (click)="clearCanvas()">Obrisi</button>
+<button (click)="addObject()">Dodaj objekat</button>
+<span style="color:red">{{message2}}</span>
+
+<br/><br/>
+<span>Dodajte objekat preko JSON fajla:</span>
+<input type="file" (change)="onFileSelected($event)" accept=".json">
+<hr/>
+<!-- ============================================= AGENCIJE =============================================== -->
+<h3>Agencije</h3> 
+Pretrazi agencije: 
+<table>
+    <tr>
+        <td>Naziv: </td>
+        <td>
+            <input type="text" name="text" [(ngModel)]="searchName">
+        </td>
+        <td>Adresa: </td>
+        <td>
+            <input type="text" name="text" [(ngModel)]="searchAddress">
+        </td>
+        <td>
+            <button (click)="searchAgency()">Pretrazi</button>
+        </td>
+    </tr>    
+</table>
+
+<table>
+    <tr>
+        <td>Sortiraj po: </td>
+        <td>
+            <select [(ngModel)]="sortParam">
+                <option value="name">Nazivu</option>
+                <option value="description">Opisu</option>
+            </select>
+        </td>
+        <td>
+            <select [(ngModel)]="sortTrend">
+                <option value=1>Rastuce</option>
+                <option value=-1>Opadajuce</option>
+            </select>
+        </td>
+        <td>
+            <button (click)="sortirajAgencije()">Sortiraj</button>
+        </td>
+    </tr>    
+</table>
+
+<br/>
+<table border="1">
+    <tr>
+        <td>Logo</td>
+        <td>Naziv</td>
+        <td>Opis</td>
+        <td>Komentari</td>
+        <td>Izaberi</td>
+    </tr>
+    <tr *ngFor="let n of allAgencies">
+        <td>
+            <img [src]="n.image" alt="Uploaded Image" class="thumbnail"> 
+        </td>
+        <td>{{n.name}}</td>
+        <td>{{n.description}}</td>
+        <td>
+            <ul>
+                <li *ngFor="let c of n.komentari">
+                    {{c.korisnik}}: "{{c.komentar}}" - Ocena: {{c.ocena}}
+                </li>
+            </ul>
+        </td>
+        <td >
+            <input type="radio" name="radiogroup" value="{{n.name}}" [(ngModel)]="agencijaZahtev">
+        </td>
+    </tr>
+</table>
+
+<h4>Popuni zahtev za saradnju sa agencijom:</h4>
+<table>
+    <tr>
+        <td>Objekat na adresi</td>
+        <td>
+            <select [(ngModel)]="adresaZahtev">
+                <option *ngFor="let obj of allObjects" value="{{obj.adresa}}">{{obj.adresa}}</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>Rok zavrsetka radova: </td>
+        <td>
+            <input type="text" name="text" [(ngModel)]="rokZahtev">
+        </td>
+    </tr>
+    <tr>
+        <button (click)="podnesiZahtev()">Podnesi zahtev</button>
+    </tr>
+</table>
+
+<!-- =========================================== POSLOVI ================================================ -->
+<hr/>
+<h3>Poslovi</h3>
+
+Filtriraj: 
+<select [(ngModel)]="filterPosao">
+    <option value="aktivan">Aktivne poslove</option>
+    <option value="zavrsen">Zavrsene poslove</option>
+    <option value="zahtev">Zahteve</option>
+    <option value="svi">Ponisti filter</option>
+</select>
+<button (click)="filtrirajPoslove()">Potvrdi</button>
+<br/>
+<table border="1">
+    <tr>
+        <td>Agencija</td>
+        <td>Adresa</td>
+        <td>Rok</td>
+        <td>Tip</td>
+        <!--
+        <td>Ponuda</td>
+        <td>Prihvati</td>
+        <td>Odbij</td>
+        <td>Plati</td>
+        -->
+    </tr>
+    <tr *ngFor="let n of sviPoslovi; let i = index" [ngClass]="{'green-row': n.status === 'prihvacenZahtev', 'red-row': n.status === 'odbijenZahtev'}">
+        <td>{{n.agencija}}</td>
+        <td>{{n.adresa}}</td>
+        <td>{{n.rok}}</td>
+        <td>{{n.status}}</td>
+        <td *ngIf="n.ponuda > 0 && n.status == 'prihvacenZahtev'">Ponuda: {{n.ponuda}}</td>
+        <td *ngIf="n.ponuda > 0 && n.status == 'prihvacenZahtev'">
+            <button (click)="prihvatiPonudu(n.agencija, n.adresa)">Prihvati</button>
+        </td>
+        <td *ngIf="n.ponuda > 0 && n.status == 'prihvacenZahtev'">
+            <button (click)="odbijPonudu(n.agencija, n.adresa)">Odbij</button>
+        </td>
+        <td *ngIf="n.ponuda > 0 && n.status == 'aktivan' && n.gotovo == true">
+            <button (click)="plati(n.agencija, n.adresa)">Plati</button>
+        </td>
+
+        <td *ngIf="n.status == 'zavrsen' && prikazi==null">
+            <button (click)="jelOcenjeno(n.agencija)">Oceni agenciju</button>
+        </td>
+        
+        <td *ngIf="n.status == 'zavrsen' && prikazi!=null">
+            <button (click)="oceniAgenciju(n.agencija)">Oceni</button>
+        </td>
+        <td *ngIf="n.status == 'zavrsen' && prikazi=='edit'">
+            <button (click)="obrisiKomentar(n.agencija)">Obrisi</button>
+        </td>
+        <td *ngIf="n.status == 'aktivan'">
+            <button (click)="prikaziAktivanPosao(n.user, n.adresa)">Prikazi posao</button>
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td *ngIf="prikazi!=null">
+            Komentar: 
+            <input type="text" name="text" [(ngModel)]="komentar">
+        </td>
+        <td *ngIf="prikazi!=null">
+            Ocena: 
+            <input type="radio" name="grupa" id="1" [value]="1" [(ngModel)]="ocena">
+            <label for="1">1</label>
+            <input type="radio" name="grupa" id="2" [value]="2" [(ngModel)]="ocena">
+            <label for="2">2</label>
+            <input type="radio" name="grupa" id="3" [value]="3" [(ngModel)]="ocena">
+            <label for="3">3</label>
+            <input type="radio" name="grupa" id="4" [value]="4" [(ngModel)]="ocena">
+            <label for="4">4</label>
+            <input type="radio" name="grupa" id="5" [value]="5" [(ngModel)]="ocena">
+            <label for="5">5</label>              
+        </td>
+    </tr>
+</table>
+
+<canvas id="canvas3" class="canvasClass"></canvas>
+
+<!-- ================================================================================================= -->
+<hr/>
+<h3>Promena lozinke</h3>
+<table>
+    <tr>
+        <td>Stara lozinka</td>
+        <td>
+            <input type="text" name="text" [(ngModel)]="oldPassword">
+        </td>
+    </tr>
+    <tr>
+        <td>Nova lozinka</td>
+        <td>
+            <input type="text" name="text" [(ngModel)]="newPassword">
+        </td>
+    </tr>
+    <tr>
+        <td>Ponovite lozinku</td>
+        <td>
+            <input type="text" name="text" [(ngModel)]="repeatPassword">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <button (click)="changePassword()" [disabled]="alreadyChangedPass">Promeni lozinku</button>
+        </td>
+    </tr>
+</table>
+<p style="color: red">{{message}}</p>
+
+
+<app-footer style="position: relative; left: 0; bottom: 0; width: 100%; padding: 0;"></app-footer>

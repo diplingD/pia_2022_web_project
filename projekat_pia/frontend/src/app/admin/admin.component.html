@@ -1,0 +1,355 @@
+<div style="background-color: rgb(128, 128, 108);">
+    <table style="width: 100%;">
+        <tr>
+            <div style="text-align: left;">
+                <td>
+                    <h3 style="color:white; margin: 0;">Admin: </h3>
+                </td>
+                <td>
+                    <span style="color:white">{{adminUsername}}</span>
+                </td>
+            </div>
+            <td style="text-align: right;">
+                <button (click)="logout()">Odjava</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<h3>Klijenti</h3>
+
+<button *ngIf="addingClient==false" (click)="addClientForm()">Add new client</button>
+<table *ngIf="addingClient">
+    <tr>
+        <td>Username</td>
+        <td>
+            <input type="text" name="usernameC" [(ngModel)]="username">
+        </td>
+    </tr>
+    <tr>
+        <td>Password</td>
+        <td>
+            <input type="text" name="passwordC" [(ngModel)]="password">
+        </td>
+        <td>Confirm password</td>
+        <td>
+            <input type="text" name="password2C" [(ngModel)]="password2">
+        </td>        
+    </tr>
+    <tr>
+        <td>Contact</td>
+        <td>
+            <input type="text" name="contactC" [(ngModel)]="contact">
+        </td>
+        <td>Email</td>
+        <td>
+            <input type="text" name="mailC" [(ngModel)]="mail">
+        </td>
+    </tr>
+    <tr>
+        <td>Firstname</td>
+        <td>
+            <input type="text" name="nameC" [(ngModel)]="name">
+        </td>
+        <td>Lastname</td>
+        <td>
+            <input type="text" name="lastnameC" [(ngModel)]="lastnameC">
+        </td>
+    </tr>
+</table>
+<form *ngIf="addingClient" (submit)="uploadImage($event)">
+    Dodaj sliku:
+    <input type="file" name="image" accept="image/jpeg, image/png" (change)="onFileSelected($event)">
+    <button type="submit">Upload</button>
+    <br/><br/>
+    <button (click)="addClient()">Add client</button>
+    <button (click)="cancelAddingClient()">Cancel</button>
+    <br/>
+</form>
+<p *ngIf="addingClient" style="color:red">{{message}}</p>
+
+<table border="1">
+    <tr>
+        <td>First name</td>
+        <td>Last name</td>
+        <td>Contact</td>
+        <td>Mail</td>
+        <td>Edit</td>
+        <td>Delete</td>
+    </tr>
+    <tr *ngFor="let n of allClients">
+        <td>{{n.firstname}}</td>
+        <td>{{n.lastname}}</td>
+        <td>{{n.contact}}</td>
+        <td>{{n.mail}}</td>
+        <td>
+            <button (click)="editClient(n.username)" [disabled]="isEditing">Edit</button>
+        </td>
+        <td>
+            <button (click)="deleteClient(n.username)" [disabled]="isEditing">Delete</button>
+        </td>
+    </tr>
+</table>
+
+<table *ngIf="isEditing==true">
+    <tr>
+        <td>First name</td>
+        <td>Last name</td>
+        <td>Contact</td>
+        <td>Mail</td>
+    </tr>
+    <tr>
+        <td>
+            <input type="text" name="text" [(ngModel)]="firstnameEdt">
+        </td>
+        <td>
+            <input type="text" name="text" [(ngModel)]="lastnameEdt">
+        </td>
+        <td>
+            <input type="number" name="number" [(ngModel)]="contactEdt">
+        </td>
+        <td>
+            <input type="text" name="text" [(ngModel)]="mailEdt">
+        </td>
+        <td>
+            <button (click)="updateClient()">Update</button>
+        </td>
+        <td>
+            <button (click)="cancelEditing()">Cancel</button>
+        </td>
+    </tr>
+</table>
+<hr/>
+<!-- ========================================================================= -->
+<h3>Agencije</h3>
+
+<button *ngIf="addingAgency==false" (click)="addAgencyForm()">Add new agency</button>
+<table *ngIf="addingAgency">
+    <tr>
+        <td>Username</td>
+        <td>
+            <input type="text" name="usernameC" [(ngModel)]="username">
+        </td>
+        <td>Name</td>
+        <td>
+            <input type="text" name="nameC" [(ngModel)]="name">
+        </td>
+    </tr>
+    <tr>
+        <td>Password</td>
+        <td>
+            <input type="text" name="passwordC" [(ngModel)]="password">
+        </td>
+        <td>Confirm password</td>
+        <td>
+            <input type="text" name="password2C" [(ngModel)]="password2">
+        </td>        
+    </tr>
+    <tr>
+        <td>Contact</td>
+        <td>
+            <input type="text" name="contactC" [(ngModel)]="contact">
+        </td>
+        <td>Email</td>
+        <td>
+            <input type="text" name="mailC" [(ngModel)]="mail">
+        </td>
+    </tr>
+    <tr>
+        <td>Address</td>
+        <td>
+            <input type="text" name="nameC" [(ngModel)]="addressA">
+        </td>
+        <td>Number (pib)</td>
+        <td>
+            <input type="number" name="number" [(ngModel)]="numberA">
+        </td>
+        <td>Description</td>
+        <td>
+            <input type="text" name="lastnameC" [(ngModel)]="descrA">
+        </td>
+    </tr>
+</table>
+<form *ngIf="addingAgency" (submit)="uploadImage($event)">
+    Dodaj sliku:
+    <input type="file" name="image" accept="image/jpeg, image/png" (change)="onFileSelected($event)">
+    <button type="submit">Upload</button>
+    <br/><br/>
+    <button (click)="addAgency()">Add agency</button>
+    <button (click)="cancelAddingAgency()">Cancel</button>
+    <br/>
+</form>
+<p *ngIf="addingAgency" style="color:red">{{message2}}</p>
+
+<table border="1">
+    <tr>
+        <td>Name</td>
+        <td>Contact</td>
+        <td>Mail</td>
+        <td>Address</td>
+        <td>Description</td>
+        <td>Edit</td>
+        <td>Delete</td>
+    </tr>
+    <tr *ngFor="let n of allAgencies">
+        <td>{{n.name}}</td>
+        <td>{{n.contact}}</td>
+        <td>{{n.mail}}</td>
+        <td>{{n.address}}</td>
+        <td>{{n.description}}</td>
+        <td>
+            <button (click)="editAgency(n.username)" [disabled]="isEditingAgency">Edit</button>
+        </td>
+        <td>
+            <button (click)="deleteAgency(n.username)" [disabled]="isEditingAgency">Delete</button>
+        </td>
+    </tr>
+</table>
+
+<table *ngIf="isEditingAgency==true">
+    <tr>
+        <td>Name</td>
+        <td>Contact</td>
+        <td>Mail</td>
+        <td>Address</td>
+        <td>Description</td>
+    </tr>
+    <tr *ngFor="let n of allAgencies">
+        <td>
+            <input type="text" name="text" [(ngModel)]="agNameEdt">
+        </td>
+        <td>
+            <input type="number" name="number" [(ngModel)]="agContactEdt">
+        </td>
+        <td>
+            <input type="text" name="text" [(ngModel)]="agMailEdt">
+        </td>
+        <td>
+            <input type="text" name="text" [(ngModel)]="agAddrEdt">
+        </td>
+        <td>
+            <input type="text" name="text" [(ngModel)]="agDescrEdt">
+        </td>
+        <td>
+            <button (click)="updateAgency()">Update</button>
+        </td>
+        <td>
+            <button (click)="cancelAgencyEditing()">Cancel</button>
+        </td>
+    </tr>
+</table>
+
+<hr/>
+<!-- ======================================= ZAHTEVI ZA REG =========================================== -->
+<h3>Zahtevi za registracijom</h3>
+
+<table border="1">
+    <tr>
+        <td>Tip</td>
+        <td>User</td>
+        <td>Kontakt</td>
+        <td>E-mail</td>
+        <td>Prihvati</td>
+        <td>Odbij</td>
+    </tr>
+    <tr *ngFor="let c of allClientsReq">
+        <td>{{c.type}}</td>
+        <td>{{c.username}} ({{c.firstname}} {{c.lastname}})</td>
+        <td>{{c.contact}}</td>
+        <td>{{c.mail}}</td>
+        <td>
+            <button (click)="prihvatiReg(c.username, c.type)">Prihvati</button>
+        </td>
+        <td>
+            <button (click)="odbijReg(c.username, c.type)">Odbij</button>
+        </td>
+    </tr>
+    <tr *ngFor="let a of allAgenciesReq">
+        <td>{{a.type}}</td>
+        <td>{{a.username}} ({{a.name}})</td>
+        <td>{{a.contact}}</td>
+        <td>{{a.mail}}</td>
+        <td>
+            <button (click)="prihvatiReg(a.username, a.type)">Prihvati</button>
+        </td>
+        <td>
+            <button (click)="odbijReg(a.username, a.type)">Odbij</button>
+        </td>
+    </tr>
+</table>
+
+<hr/>
+<!-- ================================== ZAHTEVI ZA RADNIM MESTIMA ================================= -->
+<h3>Zahtevi za novim radnim mestima</h3>
+<table border="1">
+    <tr>
+        <td>Agencija</td>
+        <td>Zatheva radnih mesta</td>
+        <td>Odobri radnih mesta</td>
+        <td>Potvrdi</td>
+    </tr>
+    <tr *ngFor="let n of allAgencies" >
+        <td *ngIf="n.radnihMestaZahtev>0">{{n.name}}</td>
+        <td *ngIf="n.radnihMestaZahtev>0">{{n.radnihMestaZahtev}}</td>
+        <td *ngIf="n.radnihMestaZahtev>0">
+            <input type="number" name="number" [(ngModel)]="radnaMesta">
+        </td>
+        <td *ngIf="n.radnihMestaZahtev>0">
+            <button (click)="odobriRadnaMesta(n.username, n.radnihMesta, n.radnihMestaZahtev)">Potvrdi</button>
+        </td>
+    </tr>
+</table>
+<span style="color:red">{{message4}}</span>
+
+<hr/>
+
+<!-- ========================================= POSLOVI ============================================== -->
+<h3>Poslovi</h3>
+<table border="1">
+    <tr>
+        <td>Klijent</td>
+        <td>Agencija</td>
+        <td>Adresa</td>
+        <td>Rok izrade</td>
+        <td>Status</td>
+    </tr>
+    <tr *ngFor="let n of allJobs">
+        <td>{{n.user}}</td>
+        <td>{{n.agencija}}</td>
+        <td>{{n.adresa}}</td>
+        <td>{{n.rok}}</td>
+        <td>{{n.status}}</td>
+    </tr>
+</table>
+
+<hr/>
+<!-- ======================================= PROMENA LOZINKE =========================================== -->
+<h3>Promena lozinke</h3>
+<table>
+    <tr>
+        <td>Stara lozinka</td>
+        <td>
+            <input type="text" name="text" [(ngModel)]="oldPassword">
+        </td>
+    </tr>
+    <tr>
+        <td>Nova lozinka</td>
+        <td>
+            <input type="text" name="text" [(ngModel)]="newPassword">
+        </td>
+    </tr>
+    <tr>
+        <td>Ponovite lozinku</td>
+        <td>
+            <input type="text" name="text" [(ngModel)]="repeatPassword">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <button (click)="changePassword()">Promeni lozinku</button>
+        </td>
+    </tr>
+</table>
+<p style="color: red">{{message3}}</p>
+
+<app-footer style="position: relative; left: 0; bottom: 0; width: 100%; padding: 0;"></app-footer>

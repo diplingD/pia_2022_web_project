@@ -1,0 +1,159 @@
+<div style="background-color: rgb(135, 109, 125);">
+    <table style="width: 100%;">
+        <tr>
+            <td>
+                <h2 style="color:white; margin: 0;">Agencija:</h2>
+            </td>
+            <td style="text-align: right;">
+                <button (click)="azurirajAgenciju()">Azuriraj podatke</button>
+                <button (click)="logout()">Odjava</button>
+            </td>
+        </tr>
+        <tr>
+            <div style="text-align: left; display: flex; align-items: center;">
+                <td>
+                    <img [src]="image" alt="Uploaded Image" class="thumbnail">
+                </td>
+                <td>
+                    <h4 style="color:white">{{name}}</h4>
+                </td>
+            </div>
+        </tr>
+        <div>
+            <tr>
+                <td style="color:white">E-mail: </td>
+                <td style="color:white">{{mail}}</td>
+            </tr>
+            <tr>
+                <td style="color:white">Kontakt: </td>
+                <td style="color:white">{{contact}}</td>
+            </tr>
+            <tr>
+                <td style="color:white">Adresa: </td>
+                <td style="color:white">{{address}}</td>
+            </tr>
+            <tr>
+                <td style="color:white">Opis: </td>
+                <td style="color:white">{{description}}</td>
+            </tr>
+        </div>
+    </table>
+</div>
+
+<!-- ======================================= POSLOVI =========================================== -->
+<h3>Poslovi</h3>
+<h4>Zahtevi</h4>
+<table border="1">
+    <tr>
+        <td>Klijent</td>
+        <td>Adresa objekta</td>
+        <td>Rok izrade</td>
+        <td>Odbij</td>
+    </tr>
+    <tr *ngFor="let z of sviZahtevi">
+        <td>
+            <button (click)="prikaziKlijenta(z.user, z.adresa)">{{z.user}}</button>
+        </td>
+        <td>
+            <button (click)="prikaziObjekat(z.user, z.adresa)">{{z.adresa}}</button>
+        </td>
+        <td>{{z.rok}}</td>
+        <td>
+            <button (click)="odbijZahtev(z.user, z.adresa)">Odbij</button>
+        </td>
+    </tr>
+</table>
+<div *ngIf="showClient">
+    <br>
+    Klijent: {{clientFirstname}} {{clientLastname}} <br>
+    Kontakt: {{clientContact}}, {{clientMail}} <br>
+    Ponuda: <input type="number" name="number" [(ngModel)]="ponuda">
+    <button (click)="prihvatiZahtev()" [disabled]="ponuda <= 0 || !ponuda">Posalji</button>
+    <br>
+    <button (click)="otkaziPrikazKlijenta()">Zatvori</button>
+</div>
+<div *ngIf="showObject">
+    <br>
+    Tip: {{objekatTip}} <br>
+    Broj prostorija: {{objekatProstorije}} <br>
+    Kvadratura: {{objekatKvadratura}}
+    <br>
+    <button (click)="otkaziPrikazObjektra()">Zatvori</button>
+</div>
+
+<h4>Trenutno aktivni poslovi</h4>
+<table border="1">
+    <tr>
+        <td>Klijent</td>
+        <td>Adresa objekta</td>
+        <td>Rok izrade</td>
+        <td>Dodeli broj radnika objektu</td>
+        <td>Skica objekta</td>
+        <td>Sacuvaj izmene</td>
+    </tr>
+    <tr *ngFor="let n of sviAktivni">
+        <td>{{n.user}}</td>
+        <td>{{n.adresa}}</td>
+        <td>{{n.rok}}</td>
+        <td>
+            Br radnika: <input type="number" name="number" [(ngModel)]="brRadnika">
+            <button (click)="dodeliRadnikeObjektu(n.user, n.adresa)">Dodeli</button>
+        </td>
+        <td>
+            <button (click)="showCanvas(n.user, n.adresa)">Prikazi</button>
+        </td>
+        <td>
+            <button (click)="opremanjeSobe(n.user, n.adresa)">Sacuvaj izmene</button>
+        </td>
+    </tr>
+</table>
+<span style="color:red">{{message3}}</span>
+<br/><br/>
+
+<!-- RADNICI -->
+<span style="font-style: italic;">Trenutno imate {{radnihMesta}} radnih mesta i {{radnici}} radnika</span>
+<button (click)="dodajRadnika()">Dodaj radnika</button> <br>
+Otvori novih <input type="number" name="number" [(ngModel)]="radnihMestaZahtev"> radnih mesta 
+<button (click)="zahtevajRadnaMesta()">Posalji zahtev</button>
+<span style="color:red">{{message2}}</span>
+
+<br><br>
+Opremi sobu: 
+<select [(ngModel)]="statusSobe">
+    <option value="zapoceto">Zapocni</option>
+    <option value="zavrseno">Zavrsi</option>
+</select>
+<br>
+<canvas id="canvas1" class="canvasClass"></canvas>
+<br>
+<button (click)="clearCanvas()">Clear</button>
+
+<hr/>
+<!-- ======================================= PROMENA LOZINKE =========================================== -->
+<h3>Promena lozinke</h3>
+<table>
+    <tr>
+        <td>Stara lozinka</td>
+        <td>
+            <input type="text" name="text" [(ngModel)]="oldPassword">
+        </td>
+    </tr>
+    <tr>
+        <td>Nova lozinka</td>
+        <td>
+            <input type="text" name="text" [(ngModel)]="newPassword">
+        </td>
+    </tr>
+    <tr>
+        <td>Ponovite lozinku</td>
+        <td>
+            <input type="text" name="text" [(ngModel)]="repeatPassword">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <button (click)="changePassword()" [disabled]="alreadyChangedPass">Promeni lozinku</button>
+        </td>
+    </tr>
+</table>
+<p style="color: red">{{message}}</p>
